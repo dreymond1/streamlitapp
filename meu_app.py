@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from sentiment_analysis import prever_sentimento 
 
 st.set_page_config(page_title="Meu Site Streamlit")
 
