@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from sentiment_analize import prever_sentimento  # Importe o arquivo limpo como um módulo
+from sentiment_analysis import prever_sentimento 
 
 st.set_page_config(page_title="Meu Site Streamlit")
 
@@ -12,16 +12,14 @@ with st.container():
 
 
 @st.cache_data
-# Título da Aplicação
-st.title("Análise de Sentimentos com Naive Bayes")
+def carregar_dados():
+    tabela = pd.read_csv("resultados.csv")
+    return tabela
 
-# Entrada de Texto
-text_input = st.text_area("Digite um comentário para análise:")
-
-# Botão de Previsão
-if st.button("Analisar Sentimento"):
-    if text_input.strip():
-        sentimento = prever_sentimento(text_input)
-        st.success(f"Sentimento previsto: {sentimento}")
-    else:
-        st.warning("Por favor, insira um texto.")
+with st.container():
+    st.write("---")
+    qtde_dias = st.selectbox("Selecione o período", ["7D", "15D", "21D", "30D"])
+    num_dias = int(qtde_dias.replace("D", ""))
+    dados = carregar_dados()
+    dados = dados[-num_dias:]
+    st.area_chart(dados, x="Data", y="Contratos")
