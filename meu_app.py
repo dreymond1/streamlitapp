@@ -23,3 +23,20 @@ with st.container():
     dados = dados[-num_dias:]
     st.area_chart(dados, x="Data", y="Contratos")
 
+
+import streamlit as st
+from sentiment_analize import prever_sentimento  # Importe o arquivo limpo como um módulo
+
+# Título da Aplicação
+st.title("Análise de Sentimentos com Naive Bayes")
+
+# Entrada de Texto
+text_input = st.text_area("Digite um comentário para análise:")
+
+# Botão de Previsão
+if st.button("Analisar Sentimento"):
+    if text_input.strip():
+        sentimento = prever_sentimento(text_input)
+        st.success(f"Sentimento previsto: {sentimento}")
+    else:
+        st.warning("Por favor, insira um texto.")
