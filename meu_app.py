@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from sentiment_analysis import prever_sentimento  # Importe o arquivo limpo como um módulo
+from sentiment_analize import prever_sentimento  # Importe o arquivo limpo como um módulo
 
 st.set_page_config(page_title="Meu Site Streamlit")
 
