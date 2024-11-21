@@ -1,6 +1,21 @@
 import streamlit as st
 import joblib
 
+# Configurações do título da página
+st.set_page_config(page_title="Análise de Sentimento", page_icon="🔍", layout="centered")
+
+# Título e descrição do aplicativo
+st.title("🔍 Análise de Sentimento de Comentários")
+st.write(
+    """
+    Este aplicativo utiliza Machine Learning para prever o sentimento de um comentário.
+    Basta inserir o texto e clicar em **Analisar Sentimento** para ver o resultado.
+    """
+)
+
+# Separador elegante
+st.markdown("---")
+
 # Carregar o modelo Naive Bayes
 model = joblib.load('modelo_naive_bayes.pkl')
 
@@ -8,14 +23,30 @@ model = joblib.load('modelo_naive_bayes.pkl')
 vectorizer = joblib.load('vectorizer.pkl')
 
 # Entrada de Texto
-text_input = st.text_area("Digite um comentário para análise:")
+st.markdown("### ✍️ Digite o comentário para análise:")
+text_input = st.text_area(
+    "Insira o comentário aqui:", 
+    placeholder="Exemplo: O produto é incrível e superou minhas expectativas!"
+)
 
 # Botão de Previsão
 if st.button("Analisar Sentimento"):
     if text_input.strip():
-        # Corrigido: Encapsular o texto em uma lista
+        # Transformar o texto e prever o sentimento
         sentimento_vec = vectorizer.transform([text_input])  # Passar como lista
         sentimento_pred = model.predict(sentimento_vec)
-        st.success(f"Sentimento previsto: {sentimento_pred[0]}")  # Mostrar o resultado como string
+
+        # Exibir resultado com formatação
+        st.markdown("#### 🎯 Resultado da Análise:")
+        if sentimento_pred[0] == "positivo":  # Ajuste baseado na classificação do modelo
+            st.success(f"Sentimento Previsto: **Positivo** 😊")
+        elif sentimento_pred[0] == "negativo":
+            st.error(f"Sentimento Previsto: **Negativo** 😠")
+        else:
+            st.info(f"Sentimento Previsto: **Neutro** 😐")
     else:
-        st.warning("Por favor, insira um texto.")
+        st.warning("⚠️ Por favor, insira um texto para análise.")
+
+# Rodapé ou separador final
+st.markdown("---")
+st.markdown("**Criado por [Andrey Alves](https://github.com/dreymond1)** 🚀")
