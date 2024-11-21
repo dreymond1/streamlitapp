@@ -13,11 +13,9 @@ text_input = st.text_area("Digite um comentário para análise:")
 # Botão de Previsão
 if st.button("Analisar Sentimento"):
     if text_input.strip():
-        sentimento = text_input
-        sentimento_vec = vectorizer.transform(sentimento)
+        # Corrigido: Encapsular o texto em uma lista
+        sentimento_vec = vectorizer.transform([text_input])  # Passar como lista
         sentimento_pred = model.predict(sentimento_vec)
-        st.success(f"Sentimento previsto: {sentimento_pred}")
+        st.success(f"Sentimento previsto: {sentimento_pred[0]}")  # Mostrar o resultado como string
     else:
         st.warning("Por favor, insira um texto.")
-
-
