@@ -38,9 +38,9 @@ if st.button("Analisar Sentimento"):
 
         # Exibir resultado com formatação
         st.markdown("#### 🎯 Resultado da Análise:")
-        if sentimento_pred[0] == "positivo":  # Ajuste baseado na classificação do modelo
+        if sentimento_pred[0] == "Positivo":  # Ajuste baseado na classificação do modelo
             st.success(f"Sentimento Previsto: **Positivo** 😊")
-        elif sentimento_pred[0] == "negativo":
+        elif sentimento_pred[0] == "Negativo":
             st.error(f"Sentimento Previsto: **Negativo** 😠")
         else:
             st.info(f"Sentimento Previsto: **Neutro** 😐")
